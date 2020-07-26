@@ -17,6 +17,7 @@ app.engine('.hbs', hbs({
     extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
+app.use(express.static(path.join(__dirname, 'public')));
 ///----------------------------------
 
 app.get('/', function (req, res) {
@@ -27,7 +28,7 @@ app.get('/form', function(req, res) {
     res.render('formImage')
 })
 
-app.post('/saveImage', multipartMiddleware, (req, res) => {
+app.post('/saveImage', (req, res) => {
     console.log(req.body, req.files);
     //selectServer();
     res.send('Enviando imagen a servidor')
@@ -49,3 +50,4 @@ function selectServer() {
 app.listen(PORT, function (){
   console.log('Middleware en puerto ', PORT)
 })
+
