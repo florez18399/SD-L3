@@ -3,11 +3,14 @@ var app = express();
 const path = require('path');
 const hbs = require('express-handlebars');
 const axios = require('axios');
-const { error } = require('console');
-//-----------------------------
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+//-----------------------------------------
 const PORT = 3010;
 const servers = ['http:localhost:3011', 'http:localhost:3012', 'http:localhost:3013']
 ///------------------------------------
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 app.set('views', path.join(__dirname, 'views'))
 app.engine('.hbs', hbs({
     defaultLayout: 'main', 
@@ -26,9 +29,10 @@ app.get('/form', function(req, res) {
     res.render('formImage')
 })
 
-app.get('/saveImage', (req, res) => {
-    console.log(req.body);
-    selectServer();
+app.post('/saveImage', multipartMiddleware, (req, res) => {
+    console.log(req.body, req.files);
+    //selectServer();
+    res.send('Enviando imagen a servidor')
 })
 
 //--------------------------------------
