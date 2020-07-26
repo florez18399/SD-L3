@@ -1,3 +1,28 @@
 body {
     background-color: white;
 }
+
+.carousel-item{
+    width: 100%;
+    height: 700px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    
+  }
+
+
+
+  @media (max-width: 600px) {
+    .carousel-item {
+      height: 280px;
+    }
+  }
+
+  #container{
+    color: blanchedalmond;
+    background-color: rgb(53, 3, 3);  
+    width: 100%;
+    margin: 0 auto;
+  }
