@@ -14,3 +14,7 @@ app.get('/saveImage', (req, res) => {
 app.listen(PORT, function (){
   console.log('Servidor de imagenes en puerto ', PORT)
 })
+
+function checkUsageSpace() {
+    
+}

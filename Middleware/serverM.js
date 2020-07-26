@@ -3,8 +3,6 @@ var app = express();
 const path = require('path');
 const hbs = require('express-handlebars');
 const axios = require('axios');
-var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart();
 //-----------------------------------------
 const PORT = 3010;
 const servers = ['http:localhost:3011', 'http:localhost:3012', 'http:localhost:3013']
