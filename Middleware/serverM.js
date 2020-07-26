@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 const path = require('path');
 const hbs = require('express-handlebars');
+const axios = require('axios');
+const { error } = require('console');
 //-----------------------------
 const PORT = 3010;
 const servers = ['http:localhost:3011', 'http:localhost:3012', 'http:localhost:3013']
@@ -23,6 +25,24 @@ app.get('/', function (req, res) {
 app.get('/form', function(req, res) {
     res.render('formImage')
 })
+
+app.get('/saveImage', (req, res) => {
+    console.log(req.body);
+    selectServer();
+})
+
+//--------------------------------------
+function selectServer() {
+    servers.forEach(element => {
+        axios.get(element + '/spaceUsage').
+        then((res) => {
+            console.log('Espacio usado', res.data)
+        }).catch((error) => {
+            console.log('Error al solicitar espacio de servidor usado');
+        })
+    });
+}
+//--------------------------------------
 
 app.listen(PORT, function (){
   console.log('Middleware en puerto ', PORT)
