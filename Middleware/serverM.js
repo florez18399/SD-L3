@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, 'publics/images'),
+    destination: path.join(__dirname, 'public/images'),
     filename: (req, file, cb) => {
         cb(null, new Date().getTime() + path.extname(file.originalname));
     }
@@ -39,20 +39,12 @@ app.get('/form', function(req, res) {
     res.render('formImage')
 })
 
-// app.post('/saveImage', (req, res) => {
-//     console.log(req.body, req.files);
-//     //selectServer();
-//     res.send('Enviando imagen a servidor')
-// })
-
 app.post('/saveImage', (req, res) => {
   console.log(req.body);
   console.log(req.file);
 
   res.send('recibido');
 })
-
-
 
 //--------------------------------------
 function selectServer() {
