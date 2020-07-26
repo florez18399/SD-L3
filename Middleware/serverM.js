@@ -20,6 +20,10 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
+app.get('/form', function(req, res) {
+    res.render('formImage')
+})
+
 app.listen(PORT, function (){
   console.log('Middleware en puerto ', PORT)
 })
