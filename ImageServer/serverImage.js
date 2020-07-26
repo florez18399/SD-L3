@@ -1,12 +1,16 @@
 var express = require('express');
 var app = express();
 
-const PORT = 3010;
+const PORT = process.argv[2];
 
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-app.listen(3000, function (){
+app.get('/saveImage', (req, res) => {
+    res.send('Espacio utilizado...')
+})
+
+app.listen(PORT, function (){
   console.log('Servidor de imagenes en puerto ', PORT)
 })
