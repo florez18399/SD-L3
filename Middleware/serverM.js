@@ -18,6 +18,7 @@ app.engine('.hbs', hbs({
     extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
+app.use(express.static(path.join(__dirname, 'public')));
 ///----------------------------------
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -69,3 +70,4 @@ function selectServer() {
 app.listen(PORT, function (){
   console.log('Middleware en puerto ', PORT)
 })
+
