@@ -4,6 +4,18 @@ const fs = require('fs');
 const path = require('path')
 const PORT = process.argv[2];
 const gfs = require('get-folder-size');
+const multer = require('multer');
+//---------------------------------------------
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, 'public/images'),
+    filename: (req, file, cb) => {
+        cb(null, new Date().getTime() + path.extname(file.originalname));
+    }
+});
+// app.use(multer({storage}).single('selectedIImage'));
+//--------------------------------------------
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
