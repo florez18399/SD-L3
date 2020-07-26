@@ -1,0 +1,22 @@
+<div>
+    <form action="/">
+        <input type="submit" class="btn btn-primary" value="Inicio">
+    </form>
+    <form action="/stats" enctype="multipart/form-data" method="post">
+        <p>Agregar imagen</p>
+        <div class="form-group">
+            <label for="inputTitleImage">Titulo Imagen:</label>
+            <input type="title" class="form-control" id="titleImage" aria-describedby="titleHelp"
+                placeholder="Agregar titulo ">
+        </div>
+        <div class="form-group">
+            <label for="inputDescriptionImage">Descripcion imagen:</label>
+            <textarea class="form-control" id="descriptionImage" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="inputSelectionImage">Seleccionar imagen</label>
+            <input type="file" class="form-control-file" id="selectedIImage">
+        </div>
+        <button type="submit" class="btn btn-outline-success">Agregar Imagen</button>
+    </form>
+</div>
