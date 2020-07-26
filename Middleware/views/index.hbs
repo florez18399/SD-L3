@@ -1,5 +1,5 @@
-<div id= "container" class="container">
-        <h1>IMAGENES</h1>
+{{!-- <div id="container" class="container">
+    <h1>IMAGENES</h1>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -29,13 +29,80 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+</div> --}}
+<div class="container">
+    <div>
+        <form action="/form">
+            <input type="submit" class="btn btn-primary" value="Agregar imagen">
+        </form>
+    </div>
 </div>
 
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Tamaño</th>
+            <th scope="col">Servidor</th>
+            <th scope="col">Imagen</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>image0001.png</td>
+            <td>2.3MB</td>
+            <td>localhost</td>
+            <td>
+                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modalImage">
+                    Ver
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>image0002.png</td>
+            <td>3.4MB</td>
+            <td>localhost</td>
+            <td>
+                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modalImage2">
+                    Ver
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 
-<div>
-    <form action="/form">
-        <input type="submit" class="btn btn-primary" value="Agregar imagen">
-    </form>
-    <p>Inicio</p>
+<div class="modal fade" id="modalImage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img class="card-img-top" src="https://cdn.pixabay.com/photo/2018/08/21/23/29/fog-3622519__340.jpg"
+                    alt="Card image cap">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalImage2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img class="card-img-top"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ2LQdGyl172BfyfnKDvsWS0MrlMoWy90vljQ&usqp=CAU"
+                    alt="Card image cap">
+            </div>
+        </div>
+    </div>
 </div>
