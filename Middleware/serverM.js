@@ -3,6 +3,7 @@ var app = express();
 const path = require('path');
 const hbs = require('express-handlebars');
 const axios = require('axios');
+const multer = require('multer');
 //-----------------------------------------
 const PORT = 3010;
 const servers = ['http:localhost:3011', 'http:localhost:3012', 'http:localhost:3013']
@@ -18,6 +19,16 @@ app.engine('.hbs', hbs({
 }));
 app.set('view engine', '.hbs');
 ///----------------------------------
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, 'publics/images'),
+    filename: (req, file, cb) => {
+        cb(null, new Date().getTime() + path.extname(file.originalname));
+    }
+});
+app.use(multer({storage}).single('selectedIImage'));
+///----------------------------------
 
 app.get('/', function (req, res) {
   res.render('index');
@@ -27,11 +38,20 @@ app.get('/form', function(req, res) {
     res.render('formImage')
 })
 
-app.post('/saveImage', multipartMiddleware, (req, res) => {
-    console.log(req.body, req.files);
-    //selectServer();
-    res.send('Enviando imagen a servidor')
+// app.post('/saveImage', (req, res) => {
+//     console.log(req.body, req.files);
+//     //selectServer();
+//     res.send('Enviando imagen a servidor')
+// })
+
+app.post('/saveImage', (req, res) => {
+  console.log(req.body);
+  console.log(req.file);
+
+  res.send('recibido');
 })
+
+
 
 //--------------------------------------
 function selectServer() {
