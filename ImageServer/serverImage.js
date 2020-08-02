@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-const fs = require('fs');
 const path = require('path')
 const PORT = process.argv[2];
 const gfs = require('get-folder-size');
@@ -8,20 +7,30 @@ const multer = require('multer');
 //---------------------------------------------
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use('/public',express.static(path.join(__dirname, 'public/images')));
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public/images'),
-    filename: (req, file, cb) => {
-        cb(null, new Date().getTime() + path.extname(file.originalname));
+    filename: (req, file, cb) => {  
+        console.log(file);
+        return cb(null, new Date().getTime() + path.extname(file.originalname));
     }
 });
+var upload = multer({storage}).single('file'); 
 // app.use(multer({storage}).single('selectedIImage'));
 //--------------------------------------------
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send('Hello World from port ' + PORT);
 });
 
-app.get('/saveImage', (req, res) => {
-    res.send('EN construccion' )
+app.post('/saveImage', upload, (req, res) => {
+    console.log('Recibiendo imagen');
+    console.log(req.file);
+    if(req.file) {
+        console.log('Verdadero');
+        res.status(200).json({ pathImage: `/public/${req.file.filename}`, size: req.file.size/1024/1024});
+    }else {
+        res.status(500).json({ message: 'Error al cargar imagen'});
+    }
 })
 
 app.get('/spaceUsage', (req, res) => {
@@ -35,7 +44,7 @@ app.listen(PORT, function (){
 })
 
 function checkUsageSpace(cb) {
-    gfs(path.join(__dirname, '/public/uploads'), (err, size) => {
+    gfs(path.join(__dirname, '/public/uploads' + PORT), (err, size) => {
         if(err) {
             console.log('Error al obtener espacio utilizado');
             return null;

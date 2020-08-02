@@ -1,0 +1,15 @@
+CREATE TABLE IMAGES (
+    id_image  SERIAL NOT NULL,
+    server_host     VARCHAR(100)  NOT NULL,
+    pathImage   VARCHAR(50)     NOT NULL,
+    date_upload   TIMESTAMP     NOT NULL,
+    size    DECIMAL(10, 2)  NOT NULL,
+    CONSTRAINT ima_pk_idi PRIMARY KEY(id_image)
+);
+
+/***
+CREATE USER sd_l3 PASSWORD '123';
+ALTER ROLE sd_l3 CREATEDB;
+CREATE DATABASE imagesdb WITH OWNER sd_l3;
+\c imagesdb
+**/
