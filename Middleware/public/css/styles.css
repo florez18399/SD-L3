@@ -12,8 +12,6 @@ body {
     
   }
 
-
-
   @media (max-width: 600px) {
     .carousel-item {
       height: 280px;
@@ -25,4 +23,12 @@ body {
     background-color: rgb(53, 3, 3);  
     width: 100%;
     margin: 0 auto;
+  }
+
+  .mydiv{
+    align-items: center;
+    text-align: center;
+  }
+  .images {
+    margin-top: 10px;
   }

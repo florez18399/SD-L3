@@ -1,43 +1,30 @@
-<div class="container">
-    <div>
-        <form action="/form">
-            <input type="submit" class="btn btn-primary" value="Agregar imagen">
-        </form>
-    </div>
-</div> 
-<div class="container">
-    <div>
-        <form action="/form">
-            <input type="submit" class="btn btn-primary" value="Agregar imagen">
-        </form>
-    </div>
-</div>
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Tamaño</th>
-            <th scope="col">Servidor</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Imagen</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each results}}
-        <tr>
-            <td>{{this.pathimage}}</td>
-            <td>{{this.size}} MB</td>
-            <td>{{this.server_host}}</td>
-            <td>{{this.date_upload}}</td>
-            <td>
-                <img src="{{server_host}}{{pathimage}}"
-                    class="img-thumbnail" width="150" height="150">
-                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modalImage{{this.idImage}}">
-                    Ver
-                </button>
-            </td>
+<div class="container images">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Tamaño</th>
+                <th scope="col">Servidor</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each results}}
+            <tr>
+                <td>{{this.pathimage}}</td>
+                <td>{{this.size}} MB</td>
+                <td>{{this.server_host}}</td>
+                <td>{{this.date_upload}}</td>
+                <td>
+                    <img src="{{server_host}}{{pathimage}}" class="img-thumbnail" width="150" height="150">
+                    <button type="button" class="btn btn-outline-info" data-toggle="modal"
+                        data-target="#modalImage{{this.idImage}}">
+                        Ver
+                    </button>
+                </td>
 
-            <!--div class="modal fade" id="modalImage{{this.idImage}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                <!--div class="modal fade" id="modalImage{{this.idImage}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -54,8 +41,16 @@
                     </div>
                 </div>
             </div-->
-        </tr>
-        {{/each}}
+            </tr>
+            {{/each}}
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
+<div class="container mydiv">
+    <div>
+        <form action="/form">
+            <input type="submit" class="btn btn-primary " value="Agregar imagen">
+        </form>
+    </div>
+</div>
