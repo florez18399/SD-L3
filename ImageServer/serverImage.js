@@ -1,13 +1,14 @@
 var express = require('express');
 var app = express();
 const path = require('path')
-const PORT = process.argv[2];
+//const PORT = process.argv[2];
+const PORT = 3010;
 const gfs = require('get-folder-size');
 const multer = require('multer');
 //---------------------------------------------
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-app.use('/public',express.static(path.join(__dirname, 'public/images')));
+app.use('/public/images',express.static(path.join(__dirname, 'public/images')));
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public/images'),
     filename: (req, file, cb) => {  
@@ -27,7 +28,7 @@ app.post('/saveImage', upload, (req, res) => {
     console.log(req.file);
     if(req.file) {
         console.log('Verdadero');
-        res.status(200).json({ pathImage: `/public/${req.file.filename}`, size: req.file.size/1024/1024});
+        res.status(200).json({ pathImage: `/public/images/${req.file.filename}`, size: req.file.size/1024/1024});
     }else {
         res.status(500).json({ message: 'Error al cargar imagen'});
     }
@@ -44,7 +45,7 @@ app.listen(PORT, function (){
 })
 
 function checkUsageSpace(cb) {
-    gfs(path.join(__dirname, '/public/uploads' + PORT), (err, size) => {
+    gfs(path.join(__dirname, '/public/images'), (err, size) => {
         if(err) {
             console.log('Error al obtener espacio utilizado');
             return null;

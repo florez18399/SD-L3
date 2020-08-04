@@ -17,11 +17,7 @@
                 <td>{{this.server_host}}</td>
                 <td>{{this.date_upload}}</td>
                 <td>
-                    <img src="{{server_host}}{{pathimage}}" class="img-thumbnail" width="150" height="150">
-                    <button type="button" class="btn btn-outline-info" data-toggle="modal"
-                        data-target="#modalImage{{this.idImage}}">
-                        Ver
-                    </button>
+                    <img src="{{server_host}}{{pathimage}}" class="img-thumbnail" width="200" height="200">
                 </td>
 
                 <!--div class="modal fade" id="modalImage{{this.idImage}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -43,7 +39,6 @@
             </div-->
             </tr>
             {{/each}}
-
         </tbody>
     </table>
 </div>

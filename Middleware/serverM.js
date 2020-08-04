@@ -5,10 +5,11 @@ const hbs = require('express-handlebars');
 const axios = require('axios');
 const multer = require('multer');
 const connection = require('./connection/connection');
-const getInfo = require('./db/dbModule').getInfoImages
+const getInfo = require('./db/dbModule').getInfoImages;
 //-----------------------------------------
-const PORT = 3010;
-const servers = ['http://localhost:3011', 'http://localhost:3012', 'http://localhost:3013']
+const PORT = 3009;
+//const servers = ['http://localhost:3011', 'http://localhost:3012', 'http://localhost:3013']
+const servers = ['http://172.18.0.3:3010', 'http://172.18.0.4:3010', 'http://172.18.0.5:3010']
 ///------------------------------------
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -29,9 +30,9 @@ var upload = multer();
 //app.use();
 ///----------------------------------
 app.get('/', function (req, res) {
-    getInfo((results) => {
+    getInfo(async (results) => {
         //console.log(results)
-        res.render('index', {results: results} );
+        res.render('index', { results: results });
     })
 });
 app.get('/form', function (req, res) {
@@ -40,23 +41,28 @@ app.get('/form', function (req, res) {
 app.get('/server', (req, res) => {
     selectServer((indexServer) => {
         axios.get(servers[indexServer] + '/').
-        then((response) => {
-            console.log(response.data);
-            res.send(response.data);
-        }).catch((err)=>{
-            console.log(err);
-        })
+            then((response) => {
+                console.log(response.data);
+                res.send(response.data);
+            }).catch((err) => {
+                console.log(err);
+            })
     });
 })
 
-app.post('/saveImage', upload.single('selectedImage'),(req, res) => {
+app.post('/saveImage', upload.single('selectedImage'), (req, res) => {
     console.log('Enviando imagen a servidor');
-    //console.log(req.body);
-    console.log(req.file);
-    selectServer((indexServer) => {
-        connection.sendImage(servers[indexServer], req.file);
+    selectServer((error, indexServer) => {
+        console.log(undefined);
+        if (!error) {
+            connection.sendImage(servers[indexServer], req.file);
+            res.redirect('/');
+        } else {
+            console.log('Enviando error');
+            //res.redirect(500, '/');
+            res.status(500).render('error', {message: String(error)});
+        }
     });
-    res.redirect('/');
 })
 
 //--------------------------------------
@@ -69,20 +75,25 @@ function selectServer(cb) {
     ])
         .then(axios.spread((data1, data2, data3) => {
             // output of req.
-            console.log('data1', data1.data.size, 'data2', data2.data.size, 'data3', data3.data.size)
+            let size = [{i:0, size:data1.data.size}, {i:1, size:data2.data.size}, {i:2, size: data3.data.size}];
             var min = data1.data.size;
             var indexServer = 0;
-            if (min > data2.data.size) {
-                min = data2.data.size;
-                indexServer = 1;
+            size.forEach(element => {
+                if(Number(element.size) < Number(min)){
+                    min = element.size;
+                    indexServer = element.i;
+                }
+            });            
+            console.log(min);
+            if (min > 10.0) {
+                cb(new Error("Ningun servidor tiene la capacidad de almacenar la imagen"));
+            } else {
+                console.log(indexServer)
+                cb(null, indexServer);
             }
-            if (min > data3.data.size) {
-                min = data3.data.size;
-                indexServer = 2;
-            }
-            console.log(indexServer)
-            cb(indexServer);
-        }));
+        })).catch((error) => {
+            cb(new Error("Hay un servidor caido"));
+        });;
 }
 //--------------------------------------
 
